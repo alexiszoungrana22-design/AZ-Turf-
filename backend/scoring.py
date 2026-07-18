@@ -2,17 +2,25 @@ from backend.config import WEIGHTS
 
 def calcul_indice(cheval):
 
-    score = 0
+    score = (
+        cheval.forme * WEIGHTS["forme"] / 20
+        + cheval.regularite * WEIGHTS["regularite"] / 15
+        + cheval.distance * WEIGHTS["distance"] / 10
+        + cheval.terrain * WEIGHTS["terrain"] / 10
+        + cheval.jockey * WEIGHTS["jockey"] / 10
+        + cheval.entraineur * WEIGHTS["entraineur"] / 10
+        + cheval.valeur * WEIGHTS["valeur"] / 10
+        + cheval.corde * WEIGHTS["corde"] / 5
+        + cheval.cote * WEIGHTS["cote"] / 10
+        + cheval.musique * WEIGHTS["musique"] / 10
+    )
 
-    score += cheval.forme * WEIGHTS["forme"] / 20
-    score += cheval.regularite * WEIGHTS["regularite"] / 15
-    score += cheval.distance * WEIGHTS["distance"] / 10
-    score += cheval.terrain * WEIGHTS["terrain"] / 10
-    score += cheval.jockey * WEIGHTS["jockey"] / 10
-    score += cheval.entraineur * WEIGHTS["entraineur"] / 10
-    score += cheval.valeur * WEIGHTS["valeur"] / 10
-    score += cheval.corde * WEIGHTS["corde"] / 5
-    score += cheval.cote * WEIGHTS["cote"] / 10
-    score += cheval.musique * WEIGHTS["musique"] / 10
+    return round(score, 2)
 
-    return round(score,2)
+
+def calcul_valeur_az(indice, cote):
+
+    if cote <= 0:
+        return indice
+
+    return round(indice / cote, 2)
