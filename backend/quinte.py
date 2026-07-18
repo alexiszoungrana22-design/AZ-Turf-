@@ -6,14 +6,14 @@ def generer_ticket(chevaux):
 
     return {
 
-        "bases": classement[:2],
+        "Base 1": classement[0],
+        "Base 2": classement[1],
 
-        "chances": classement[2:5],
+        "Chance 1": classement[2],
+        "Chance 2": classement[3],
+        "Chance 3": classement[4],
 
-        "outsiders": classement[5:7],
-
-        "favori": classement[0],
-
-        "indice_max": classement[0]["indiceAZ"]
+        "Outsider 1": classement[5],
+        "Outsider 2": classement[6]
 
     }
