@@ -8,4 +8,5 @@ WEIGHTS = {
     "valeur": 10,
     "corde": 5,
     "cote": 10,
+    "musique": 10
 }
