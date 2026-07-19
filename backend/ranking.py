@@ -1,4 +1,7 @@
-from backend.scoring import calcul_indice, calcul_valeur_az
+from backend.scoring import (
+    calcul_indice,
+    calcul_valeur_az,
+)
 
 def niveau_confiance(indice):
 
@@ -16,33 +19,25 @@ def niveau_confiance(indice):
 
 def classer_chevaux(chevaux):
 
-    classement = []
+    resultat = []
 
     for cheval in chevaux:
 
         indice = calcul_indice(cheval)
 
-        valeur = calcul_valeur_az(indice, cheval.cote)
-
-        classement.append({
+        resultat.append({
 
             "numero": cheval.numero,
             "nom": cheval.nom,
             "indiceAZ": indice,
-            "valeurAZ": valeur,
+            "valeurAZ": calcul_valeur_az(indice, cheval.cote),
             "confiance": niveau_confiance(indice)
 
         })
 
-    classement.sort(
+    resultat.sort(
         key=lambda x: x["indiceAZ"],
         reverse=True
     )
 
-    return classement
-    classement.sort(
-        key=lambda x: x["indiceAZ"],
-        reverse=True
-    )
-
-    return classement
+    return resultat
