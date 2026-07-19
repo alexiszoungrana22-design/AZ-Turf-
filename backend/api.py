@@ -16,14 +16,10 @@ def accueil():
 @router.post("/analyse")
 def analyse(chevaux: list[Cheval]):
 
-    classement = classer_chevaux(chevaux)
+    moteur = AZEngine()
 
-    ticket = generer_ticket(chevaux)
+    classement = moteur.analyser(chevaux)
 
     return {
-
-        "classement": classement,
-
-        "ticketAZ": ticket
-
+        "classement": classement
     }
