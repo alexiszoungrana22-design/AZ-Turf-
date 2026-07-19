@@ -1,3 +1,4 @@
+from backend.engine import AZEngine
 from fastapi import APIRouter
 from backend.models import Cheval
 from backend.ranking import classer_chevaux
@@ -6,18 +7,19 @@ from backend.quinte import generer_ticket
 router = APIRouter()
 
 @router.get("/")
-def home():
+def accueil():
     return {
-        "status": "OK",
-        "message": "AZ Turf API opérationnelle"
+        "message": "Bienvenue sur AZ Turf",
+        "version": "2.0"
     }
 
 @router.post("/analyse")
-def analyser_course(chevaux: list[Cheval]):
-    classement = classer_chevaux(chevaux)
-    ticket = generer_ticket(chevaux)
+def analyse(chevaux: list[Cheval]):
+
+    moteur = AZEngine()
+
+    classement = moteur.analyser(chevaux)
 
     return {
-        "classement": classement,
-        "ticket": ticket
+        "classement": classement
     }

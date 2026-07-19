@@ -3,6 +3,7 @@ from pydantic import BaseModel
 class Cheval(BaseModel):
     numero: int
     nom: str
+
     forme: float
     regularite: float
     distance: float
@@ -12,3 +13,4 @@ class Cheval(BaseModel):
     valeur: float
     corde: float
     cote: float
+    musique: float

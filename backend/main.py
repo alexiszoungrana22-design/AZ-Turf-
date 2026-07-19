@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from backend.api import router
 
 app = FastAPI(
@@ -8,9 +10,8 @@ app = FastAPI(
 
 app.include_router(router)
 
-@app.get("/status")
-def status():
-    return {
-        "application": "AZ Turf",
-        "status": "En ligne"
-    }
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+@app.get("/")
+def accueil():
+    return FileResponse("frontend/index.html")
