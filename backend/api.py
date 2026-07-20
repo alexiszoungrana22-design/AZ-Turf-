@@ -14,14 +14,13 @@ def accueil():
         "version": "2.0"
     }
     
-    
     @router.post("/analyse")
 def analyse(chevaux: list[Cheval]):
-
     moteur = AZEngine()
-
     classement = moteur.analyser(chevaux)
 
     return {
         "classement": classement
     }
+
+    
