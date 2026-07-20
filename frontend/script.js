@@ -1,82 +1,79 @@
 let chevaux = [];
 
-function ajouter() {
+function ajouterCheval() {
 
-    const cheval = {
+    const numero = Number(document.getElementById("numero").value);
+    const nom = document.getElementById("nom").value;
+    const cote = Number(document.getElementById("cote").value);
 
-        numero: Number(document.getElementById("numero").value),
-        nom: document.getElementById("nom").value,
-        forme: Number(document.getElementById("forme").value),
-        regularite: Number(document.getElementById("regularite").value),
-        distance: Number(document.getElementById("distance").value),
-        terrain: Number(document.getElementById("terrain").value),
-        jockey: Number(document.getElementById("jockey").value),
-        entraineur: Number(document.getElementById("entraineur").value),
-        valeur: Number(document.getElementById("valeur").value),
-        corde: Number(document.getElementById("corde").value),
-        cote: Number(document.getElementById("cote").value)
+    if (!numero || !nom || !cote) {
+        alert("Veuillez remplir tous les champs.");
+        return;
+    }
 
-    };
+    chevaux.push({
+        numero: numero,
+        nom: nom,
+        cote: cote
+    });
 
-    chevaux.push(cheval);
+    afficherListe();
 
-    afficherTableau();
-
-    document.querySelectorAll("input").forEach(i => i.value = "");
-
+    document.getElementById("numero").value = "";
+    document.getElementById("nom").value = "";
+    document.getElementById("cote").value = "";
 }
 
-function afficherTableau(){
+function afficherListe() {
 
-    const tbody=document.getElementById("liste");
+    const liste = document.getElementById("listeChevaux");
 
-    tbody.innerHTML="";
+    liste.innerHTML = "";
 
-    chevaux.forEach((c,index)=>{
+    chevaux.forEach((cheval) => {
 
-        tbody.innerHTML+=`
-        <tr>
-            <td>${c.numero}</td>
-            <td>${c.nom}</td>
-            <td>${c.forme}</td>
-            <td>${c.cote}</td>
-            <td>
-                <button onclick="supprimer(${index})">
-                ❌
-                </button>
-            </td>
-        </tr>
-        `;
+        const li = document.createElement("li");
+
+        li.textContent =
+            `${cheval.numero} - ${cheval.nom} (Cote : ${cheval.cote})`;
+
+        liste.appendChild(li);
 
     });
 
 }
 
-function supprimer(index){
+async function analyser() {
 
-    chevaux.splice(index,1);
+    if (chevaux.length === 0) {
+        alert("Ajoutez au moins un cheval.");
+        return;
+    }
 
-    afficherTableau();
+    try {
 
-}
+        const response = await fetch("/analyse", {
 
-async function envoyer(){
+            method: "POST",
 
-    const r=await fetch("/analyse",{
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-        method:"POST",
+            body: JSON.stringify(chevaux)
 
-        headers:{
-            "Content-Type":"application/json"
-        },
+        });
 
-        body:JSON.stringify(chevaux)
+        const resultat = await response.json();
 
-    });
+        document.getElementById("resultat").textContent =
+            JSON.stringify(resultat, null, 2);
 
-    const data=await r.json();
+    } catch (e) {
 
-    document.getElementById("resultat").textContent=
-    JSON.stringify(data,null,2);
+        document.getElementById("resultat").textContent =
+            "Erreur de connexion avec le backend.";
+
+    }
 
 }
