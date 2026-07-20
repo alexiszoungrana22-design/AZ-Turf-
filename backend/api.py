@@ -5,7 +5,17 @@ from backend.ranking import classer_chevaux
 from backend.quinte import generer_ticket
 
 
-@router.post("/analyse")
+router = APIRouter()
+
+@router.get("/")
+def accueil():
+    return {
+        "message": "Bienvenue sur AZ Turf",
+        "version": "2.0"
+    }
+    
+    
+    @router.post("/analyse")
 def analyse(chevaux: list[Cheval]):
 
     moteur = AZEngine()
