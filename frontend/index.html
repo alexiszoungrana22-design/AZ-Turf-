@@ -1,19 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>AZ Turf</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZ Turf Pro</title>
+
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
 
-<h1>🏇 AZ Turf fonctionne !</h1>
+<div class="container">
 
-<p>Si tu vois ce texte, le frontend est bien connecté.</p>
+    <h1>🏇 AZ Turf Pro</h1>
+    <p>Analyse intelligente des courses Quinté+</p>
 
-<button onclick="alert('AZ Turf OK')">
-Tester
-</button>
+    <div class="card">
+
+        <h2>Ajouter un cheval</h2>
+
+        <input id="numero" type="number" placeholder="Numéro">
+
+        <input id="nom" type="text" placeholder="Nom du cheval">
+
+        <input id="cote" type="number" step="0.1" placeholder="Cote">
+
+        <button onclick="ajouterCheval()">
+            Ajouter
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Chevaux enregistrés</h2>
+
+        <ul id="listeChevaux"></ul>
+
+    </div>
+
+    <button class="analyse" onclick="analyser()">
+        🧠 Analyser le Quinté
+    </button>
+
+    <div class="card">
+
+        <h2>Résultat AZ</h2>
+
+        <pre id="resultat"></pre>
+
+    </div>
+
+</div>
+
+<script src="/static/script.js"></script>
 
 </body>
 </html>
