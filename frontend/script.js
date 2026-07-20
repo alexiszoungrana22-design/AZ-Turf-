@@ -65,9 +65,25 @@ async function analyser() {
         });
 
         const resultat = await response.json();
+const tbody = document.getElementById("classement");
 
-        document.getElementById("resultat").textContent =
-            JSON.stringify(resultat, null, 2);
+tbody.innerHTML = "";
+
+resultat.classement.forEach((cheval, index) => {
+
+    tbody.innerHTML += `
+        <tr>
+            <td>${index+1}</td>
+            <td>${cheval.numero}</td>
+            <td>${cheval.nom}</td>
+            <td>${cheval.score.toFixed(2)}</td>
+        </tr>
+    `;
+
+});
+
+document.getElementById("ticket").innerHTML =
+resultat.ticket.join(" - ");
 
     } catch (e) {
 
