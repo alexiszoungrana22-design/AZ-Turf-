@@ -44,7 +44,7 @@ function afficherListe() {
 }
 
 async function analyser() {
-
+alert("Analyse lancée");
     if (chevaux.length === 0) {
         alert("Ajoutez au moins un cheval.");
         return;
